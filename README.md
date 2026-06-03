@@ -108,7 +108,7 @@ npm install
 ### Run the application
 
 ```bash
-ng serve
+ng serve --proxy-config proxy.conf.json
 ```
 
 Open the application in your browser:
