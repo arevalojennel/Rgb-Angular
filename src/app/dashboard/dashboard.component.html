@@ -1,0 +1,45 @@
+<div class="dashboard-page">
+  <!-- Header -->
+  <div class="header">
+    <div class="avatar" (click)="showLogoutSheet = true">
+      <img *ngIf="session.profilePicture; else iconTpl"
+           [src]="session.profilePicture" alt="avatar" class="avatar-img" />
+      <ng-template #iconTpl>
+        <span class="avatar-icon">👤</span>
+      </ng-template>
+    </div>
+    <div class="user-info">
+      <span class="username">{{ session?.username || 'Loading...' }}</span>
+      <span class="user-id">{{ session?.userId || '' }}</span>
+    </div>
+  </div>
+  <hr class="divider" />
+
+  <!-- Grid -->
+  <div class="grid">
+    <!-- YouTube -->
+    <div class="tile" (click)="openDetail(0)">
+      <img src="assets/images/youtube.png" alt="YouTube" class="tile-img" />
+    </div>
+    <!-- Spotify -->
+    <div class="tile" (click)="openDetail(1)">
+      <img src="assets/images/spotify.png" alt="Spotify" class="tile-img" />
+    </div>
+    <!-- Facebook -->
+    <div class="tile" (click)="openDetail(2)">
+      <img src="assets/images/facebook.png" alt="Facebook" class="tile-img" />
+    </div>
+    <!-- Others -->
+    <div class="tile others-tile" (click)="openOthers()">
+      <span class="others-icon">↗</span>
+    </div>
+  </div>
+</div>
+
+<!-- Logout Sheet -->
+<div class="sheet-overlay" *ngIf="showLogoutSheet" (click)="showLogoutSheet = false">
+  <div class="action-sheet" (click)="$event.stopPropagation()">
+    <button class="sheet-btn danger" (click)="logout()">Logout</button>
+    <button class="sheet-btn cancel" (click)="showLogoutSheet = false">Cancel</button>
+  </div>
+</div>

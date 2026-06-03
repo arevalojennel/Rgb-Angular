@@ -1,0 +1,60 @@
+<div class="login-page">
+  <!-- Stacked Logos -->
+  <div class="logo-stack">
+    <img src="assets/images/youtube.png" class="logo-icon logo-back" alt="YouTube" />
+    <img src="assets/images/spotify.png" class="logo-icon logo-mid" alt="Spotify" />
+    <img src="assets/images/facebook.png" class="logo-icon logo-front" alt="Facebook" />
+  </div>
+
+  <div class="form-area">
+    <input
+      type="text"
+      class="username-input"
+      [class.error]="usernameError"
+      placeholder="Username"
+      [(ngModel)]="username"
+      (input)="onUsernameInput()"
+      (keyup.enter)="onEnterPressed()"
+      maxlength="24"
+      autocomplete="off"
+    />
+    <p class="error-msg" *ngIf="usernameError">{{ usernameError }}</p>
+
+    <button
+      class="enter-btn"
+      [disabled]="!isEnterEnabled"
+      (click)="onEnterPressed()"
+    >
+      Enter
+    </button>
+  </div>
+</div>
+
+<!-- PIN Modal Overlay -->
+<div class="modal-overlay" *ngIf="showPinModal" (click)="closeModal()">
+  <div class="pin-modal" (click)="$event.stopPropagation()">
+    <h3 class="modal-title">Verify It's You</h3>
+    <p class="modal-sub">Please enter your 6-digit PIN</p>
+
+    <!-- 6 individual PIN boxes -->
+    <div class="pin-boxes">
+      <input
+        *ngFor="let i of [0,1,2,3,4,5]"
+        #pinBox
+        class="pin-box"
+        type="password"
+        inputmode="numeric"
+        maxlength="1"
+        [value]="pin[i] ?? ''"
+        (keydown)="onPinKeydown($event, i)"
+        (input)="onPinBoxInput($event, i)"
+        (paste)="onPinPaste($event)"
+      />
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn confirm" [disabled]="!pinFilled" (click)="onPinEnter()">Enter</button>
+      <button class="modal-btn cancel" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>

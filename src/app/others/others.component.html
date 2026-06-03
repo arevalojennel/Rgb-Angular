@@ -1,0 +1,46 @@
+<div class="others-page">
+  <!-- App Bar -->
+  <div class="app-bar">
+    <button class="back-btn" (click)="goBack()">←</button>
+    <span class="app-bar-title">Others</span>
+  </div>
+
+  <div class="content">
+    <p class="subtitle">You might also like</p>
+
+    <!-- Carousel -->
+    <div class="carousel">
+      <button class="carousel-arrow left" (click)="goTo(currentIndex - 1)">‹</button>
+
+      <div class="slides-wrapper">
+        <div
+          class="slide"
+          *ngFor="let brand of brands; let i = index"
+          [class.active]="i === currentIndex"
+          [class.prev]="i === (currentIndex - 1 + brands.length) % brands.length"
+          [class.next]="i === (currentIndex + 1) % brands.length"
+        >
+          <img [src]="brand.logo" [alt]="brand.name" class="brand-logo" />
+        </div>
+      </div>
+
+      <button class="carousel-arrow right" (click)="goTo(currentIndex + 1)">›</button>
+    </div>
+
+    <!-- Dots -->
+    <div class="dots">
+      <span
+        *ngFor="let b of brands; let i = index"
+        class="dot"
+        [class.active]="i === currentIndex"
+        (click)="goTo(i)"
+      ></span>
+    </div>
+
+    <h2 class="brand-name">{{ currentBrand.name }}</h2>
+
+    <button class="visit-btn" (click)="visitBrand()">
+      Visit {{ currentBrand.name }} Website
+    </button>
+  </div>
+</div>
